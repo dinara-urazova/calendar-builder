@@ -1,0 +1,51 @@
+.days-of-week-container,
+.calendar-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 2px solid #f76707;
+    border-radius: 5px;
+    background-color: #fff4e6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+.days-of-week-container>div,
+.calendar-container>div {
+    border: 2px solid #ffa94d;
+    border-radius: 5px;
+    background-color: #ffd8a8;
+    padding: 1em;
+    color: #d9480f;
+    text-align: center;
+}
+
+.first_day_of_month_is_monday {
+    grid-column-start: 1;
+}
+
+.first_day_of_month_is_tuesday {
+    grid-column-start: 2;
+}
+
+.first_day_of_month_is_wednesday {
+    grid-column-start: 3;
+}
+
+.first_day_of_month_is_thursday {
+    grid-column-start: 4;
+}
+
+.first_day_of_month_is_friday {
+    grid-column-start: 5;
+}
+
+.first_day_of_month_is_saturday {
+    grid-column-start: 6;
+}
+
+.first_day_of_month_is_sunday {
+    grid-column-start: 7;
+}
