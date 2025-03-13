@@ -1,49 +1,65 @@
+.calendar-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+  gap: 20px; /* расстояние между месяцами */
+}
+
+.month {
+  border: 2px solid #ffa94d;
+  border-radius: 5px;
+  background-color: #ffd8a8;
+  padding: 1em;
+  color: #d9480f;
+  text-align: left;
+}
+
+.days-of-week-container {
+  display: grid;
+  grid-template-columns: repeat(7, 30px); /* 7 колонок для дней недели */
+  text-align: right;
+}
+
 .calendar-container {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    border: 2px solid #f76707;
-    border-radius: 5px;
-    background-color: #fff4e6;
+  display: grid;
+  grid-template-columns: repeat(7, 30px); /* 7 колонок для дней месяца */
+  text-align: right;
 }
 
-* {
-    box-sizing: border-box;
+.calendar-container div {
+  border: 1px solid #ccc; /* граница для каждого дня */
+  padding: 5px;
 }
 
-
-.calendar-container>div {
-    border: 2px solid #ffa94d;
-    border-radius: 5px;
-    background-color: #ffd8a8;
-    padding: 1em;
-    color: #d9480f;
-    text-align: center;
+.calendar-container div:hover {
+  background-color: #028e4a;
+  color: #fff;
+  cursor: pointer;
 }
 
 .first_day_of_month_is_monday {
-    grid-column-start: 1;
+  grid-column-start: 1;
 }
 
 .first_day_of_month_is_tuesday {
-    grid-column-start: 2;
+  grid-column-start: 2;
 }
 
 .first_day_of_month_is_wednesday {
-    grid-column-start: 3;
+  grid-column-start: 3;
 }
 
 .first_day_of_month_is_thursday {
-    grid-column-start: 4;
+  grid-column-start: 4;
 }
 
 .first_day_of_month_is_friday {
-    grid-column-start: 5;
+  grid-column-start: 5;
 }
 
 .first_day_of_month_is_saturday {
-    grid-column-start: 6;
+  grid-column-start: 6;
 }
 
 .first_day_of_month_is_sunday {
-    grid-column-start: 7;
+  grid-column-start: 7;
 }
