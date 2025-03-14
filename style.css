@@ -1,32 +1,34 @@
 .calendar-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+  grid-template-columns: repeat(3, 1fr); /* 3 колонки */
   gap: 20px; /* расстояние между месяцами */
 }
 
 .month {
-  border: 2px solid #ffa94d;
+  border: 2px solid #c0daca;
   border-radius: 5px;
-  background-color: #ffd8a8;
+  background-color: #94d1b3;
   padding: 1em;
-  color: #d9480f;
-  text-align: left;
+  color: #3b302b;
+  text-align: center;
 }
 
 .days-of-week-container {
   display: grid;
-  grid-template-columns: repeat(7, 30px); /* 7 колонок для дней недели */
-  text-align: right;
+  grid-template-columns: repeat(7, 50px); /* 7 колонок для дней недели */
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
 }
 
 .calendar-container {
   display: grid;
-  grid-template-columns: repeat(7, 30px); /* 7 колонок для дней месяца */
-  text-align: right;
+  grid-template-columns: repeat(7, 50px); /* 7 колонок для дней месяца */
+  text-align: center;
 }
 
 .calendar-container div {
-  border: 1px solid #ccc; /* граница для каждого дня */
+  border: 1px #ccc; /* граница для каждого дня */
   padding: 5px;
 }
 
@@ -62,4 +64,128 @@
 
 .first_day_of_month_is_sunday {
   grid-column-start: 7;
+}
+
+.a::after {
+  content: " А";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.ba::after {
+  content: " БА";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.bm::after {
+  content: " БМ";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.bsh::after {
+  content: " БШ";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.dk::after {
+  content: " ДК";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+}
+
+.dk_st_2::after {
+  content: " ДК, 2★";
+  color: grey;
+  position: relative;
+  line-height: 1;
+}
+.gr::after {
+  content: " ГР";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.tl::after {
+  content: " ТЛ";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_1::after {
+  content: " 1★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_2::after {
+  content: " 2★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_3::after {
+  content: " 3★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_4::after {
+  content: " 4★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_5::after {
+  content: " 5★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_6::after {
+  content: " 6★";
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_7::after {
+  content: " 7★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
+}
+
+.stars_8::after {
+  content: " 8★";
+  color: grey;
+  white-space: nowrap;
+  position: relative;
+  line-height: 1;
 }
