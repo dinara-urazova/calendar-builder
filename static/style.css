@@ -38,31 +38,31 @@
   cursor: pointer;
 }
 
-.first_day_of_month_is_monday {
+.first_day_of_month_is_1 {
   grid-column-start: 1;
 }
 
-.first_day_of_month_is_tuesday {
+.first_day_of_month_is_2 {
   grid-column-start: 2;
 }
 
-.first_day_of_month_is_wednesday {
+.first_day_of_month_is_3 {
   grid-column-start: 3;
 }
 
-.first_day_of_month_is_thursday {
+.first_day_of_month_is_4 {
   grid-column-start: 4;
 }
 
-.first_day_of_month_is_friday {
+.first_day_of_month_is_5 {
   grid-column-start: 5;
 }
 
-.first_day_of_month_is_saturday {
+.first_day_of_month_is_6 {
   grid-column-start: 6;
 }
 
-.first_day_of_month_is_sunday {
+.first_day_of_month_is_7 {
   grid-column-start: 7;
 }
 

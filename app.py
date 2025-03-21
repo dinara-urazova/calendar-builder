@@ -4,16 +4,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-
-@app.route("/", methods=["GET"])
-def root():
-    now = datetime.now()
-    current_year = now.year
-    current_month = now.month
-    return redirect(url_for('get_calendar', year=current_year, month=current_month))
-
 months = [
-    "", 
+    "",
     "Январь",
     "Февраль",
     "Март",
@@ -25,8 +17,17 @@ months = [
     "Сентябрь",
     "Октябрь",
     "Ноябрь",
-    "Декабрь"
+    "Декабрь",
 ]
+
+
+@app.route("/", methods=["GET"])
+def root():
+    now = datetime.now()
+    current_year = now.year
+    current_month = now.month
+    return redirect(url_for("get_calendar", year=current_year, month=current_month))
+
 
 @app.route("/calendar/<int:year>/<int:month>", methods=["GET"])
 def get_calendar(year: int, month: int):
@@ -41,14 +42,10 @@ def get_calendar(year: int, month: int):
         "calendar-month.html",
         month_name=month_name,
         month_days=month_days,
-        month_start_day=month_start_day + 1,
+        first_day_class=f"first_day_of_month_is_{month_start_day + 1}",
         year=year,
-        month=month,
         next_month=next_month,
         next_year=next_year,
-        prev_month=prev_month, 
+        prev_month=prev_month,
         prev_year=prev_year,
-
     )
-
-

@@ -16,8 +16,14 @@
       <div class="month">
         <h3>{{ month_name }} {{ year }}</h3>
         <div class="navigation">
-          <a href="{{ url_for('get_calendar', year=prev_year, month=prev_month) }}">Назад</a>
-          <a href="{{ url_for('get_calendar', year=next_year, month=next_month) }}">Вперед</a>
+          <a
+            href="{{ url_for('get_calendar', year=prev_year, month=prev_month) }}"
+            >Назад</a
+          >
+          <a
+            href="{{ url_for('get_calendar', year=next_year, month=next_month) }}"
+            >Вперед</a
+          >
         </div>
         <div class="days-of-week-container">
           <div>Пн</div>
@@ -30,8 +36,9 @@
         </div>
 
         <div class="calendar-container">
-          {% for d in range(1, month_days + 1) %}
-          <div>{{ d }}</div>
+          <div class="{{first_day_class}}">1</div>
+          {% for date in range(2, month_days + 1) %}
+          <div>{{ date }}</div>
           {% endfor %}
         </div>
       </div>
