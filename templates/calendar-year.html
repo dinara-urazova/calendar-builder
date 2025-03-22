@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Calendar builder</title>
+    <title>Календарь {{ year }}</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='style.css') }}"
@@ -12,20 +12,18 @@
   </head>
 
   <body>
+    <div class="header">
+      <h1>{{ year }}</h1>
+      <div class="navigation">
+        <a href="{{ url_for('get_calendar_year', year=prev_year) }}">Назад</a>
+        <a href="{{ url_for('get_calendar_year', year=next_year) }}">Вперёд</a>
+      </div>
+    </div>
+
     <div class="calendar-wrapper">
-      <div class="month"> 
-        <h3>{{ month_name }} {{ year }}</h3>
-        <div class="navigation">
-          <a
-            href="{{ url_for('get_calendar_month', year=prev_year, month=prev_month) }}"
-            >Назад</a
-          >
-          <a
-            href="{{ url_for('get_calendar_month', year=next_year, month=next_month) }}"
-            >Вперёд</a
-          >
-        </div>
-        
+      {% for month in month_data %}
+      <div class="month">
+        <h3>{{ month.month_name }}</h3>
         <div class="days-of-week-container">
           <div>Пн</div>
           <div>Вт</div>
@@ -37,14 +35,13 @@
         </div>
 
         <div class="calendar-container">
-          <div class="{{first_day_class}}">1</div>
-          {% for date in range(2, month_days + 1) %}
+          <div class="{{ month.first_day_class }}">1</div>
+          {% for date in range(2, month.month_days + 1) %}
           <div>{{ date }}</div>
           {% endfor %}
         </div>
       </div>
+      {% endfor %}
     </div>
   </body>
 </html>
-
-
