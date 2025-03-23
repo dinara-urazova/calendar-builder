@@ -5,7 +5,6 @@ from datetime import datetime
 app = Flask(__name__)
 
 months = [
-    "",
     "Январь",
     "Февраль",
     "Март",
@@ -32,7 +31,7 @@ def root():
 @app.route("/calendar/<int:year>/<int:month>", methods=["GET"])
 def get_calendar(year: int, month: int):
     month_start_day, month_days = calendar.monthrange(year, month)
-    month_name = months[month]
+    month_name = months[month - 1]
     next_month = month + 1 if month < 12 else 1
     prev_month = month - 1 if month > 1 else 12
     next_year = year if month < 12 else year + 1
