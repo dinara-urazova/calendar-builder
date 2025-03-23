@@ -57,7 +57,7 @@ def get_calendar_year(year: int):
     month_data = []
     for month in range(1, 13):
         month_start_day, month_days = calendar.monthrange(year, month)
-        month_name = months[month]
+        month_name = months[month - 1]
         month_data.append(
             {
                 "year": year,
