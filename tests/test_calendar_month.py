@@ -23,7 +23,7 @@ def test_get_calendar_month(client):
 
     start_day, month_days = calendar.monthrange(year, month)
     # Extract all the divs with day numbers (i.e., <div>1</div>, <div>2</div>, ...)
-    day_divs = re.findall(r"<div>(\d+)</div>", html)
+    day_divs = re.findall(r"<div>(\d+)</div>", html)  
     # results in a list of strings from 2 to 31 (as start day is treated differently) like ['2', ...'31']
 
     last_day = max(int(day) for day in day_divs)
