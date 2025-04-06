@@ -4,20 +4,20 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-months = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-]
+months = {
+    1: "Январь",
+    2: "Февраль",
+    3: "Март",
+    4: "Апрель",
+    5: "Май",
+    6: "Июнь",
+    7: "Июль",
+    8: "Август",
+    9: "Сентябрь",
+    10: "Октябрь",
+    11: "Ноябрь",
+    12: "Декабрь"
+}
 
 
 def validate_year_month(year: int, month=None):
@@ -42,7 +42,7 @@ def get_calendar_month(year: int, month: int):
     # Проверка для года и месяца 
     validate_year_month(year, month)
     month_start_day, month_days = calendar.monthrange(year, month)
-    month_name = months[month - 1]
+    month_name = months[month]
     next_month = month + 1 if month < 12 else 1
     prev_month = month - 1 if month > 1 else 12
     next_year = year if month < 12 else year + 1
@@ -68,7 +68,7 @@ def get_calendar_year(year: int):
     month_data = []
     for month in range(1, 13):
         month_start_day, month_days = calendar.monthrange(year, month)
-        month_name = months[month - 1]
+        month_name = months[month]
         month_data.append(
             {
                 "year": year,
