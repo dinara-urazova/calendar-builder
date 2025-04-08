@@ -4,6 +4,28 @@
   gap: 20px; /* расстояние между месяцами */
 }
 
+.header {
+  color: darkslategrey;
+  text-align: center; 
+  margin-bottom: 20px; /* Отступ снизу для разделения с календарем */
+}
+
+
+.navigation {
+  margin-top: 10px; /* Отступ сверху для разделения с заголовком */
+  margin-bottom: 10px;
+}
+
+.navigation a {
+  text-decoration: none; /* Убирает подчеркивание */
+  color: grey; /* Цвет текста */
+  padding: 20px; /* Отступы вокруг ссылок */
+}
+
+.navigation a:hover {
+  color: #028e4a; /* Цвет при наведении */
+}
+
 .month {
   border: 2px solid #c0daca;
   border-radius: 5px;
