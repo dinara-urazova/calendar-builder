@@ -1,24 +1,31 @@
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, abort, redirect, render_template, url_for
 import calendar
 from datetime import datetime
 
 app = Flask(__name__)
 
-months = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-]
+months = {
+    1: "Январь",
+    2: "Февраль",
+    3: "Март",
+    4: "Апрель",
+    5: "Май",
+    6: "Июнь",
+    7: "Июль",
+    8: "Август",
+    9: "Сентябрь",
+    10: "Октябрь",
+    11: "Ноябрь",
+    12: "Декабрь"
+}
 
+
+def validate_year_month(year: int, month=None):
+    if year < 1 or year > 9999:
+        abort(400, f"Invalid year number: {year}. Year must be between 1 and 9999.")
+    if month is not None:
+        if month < 1 or month > 12:
+            abort(400, f"Invalid month number: {month}. Must be between 1 and 12.")
 
 @app.route("/", methods=["GET"])
 def root():
@@ -32,8 +39,10 @@ def root():
 
 @app.route("/calendar/<int:year>/<int:month>", methods=["GET"])
 def get_calendar_month(year: int, month: int):
+    # Проверка для года и месяца 
+    validate_year_month(year, month)
     month_start_day, month_days = calendar.monthrange(year, month)
-    month_name = months[month - 1]
+    month_name = months[month]
     next_month = month + 1 if month < 12 else 1
     prev_month = month - 1 if month > 1 else 12
     next_year = year if month < 12 else year + 1
@@ -54,10 +63,12 @@ def get_calendar_month(year: int, month: int):
 
 @app.route("/calendar/<int:year>", methods=["GET"])
 def get_calendar_year(year: int):
+    # Проверка для года
+    validate_year_month(year)
     month_data = []
     for month in range(1, 13):
         month_start_day, month_days = calendar.monthrange(year, month)
-        month_name = months[month - 1]
+        month_name = months[month]
         month_data.append(
             {
                 "year": year,
