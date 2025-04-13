@@ -21,7 +21,8 @@ def test_get_calendar_month(client):
     html = response.data.decode("utf-8")
     assert "Октябрь 2024" in html
 
-    start_day, month_days = calendar.monthrange(year, month)
+    start_day = 2
+    month_days = 31
     # Extract all the divs with day numbers (i.e., <div>1</div>, <div>2</div>, ...)
     day_divs = re.findall(r"<div>(\d+)</div>", html)  
     # results in a list of strings from 2 to 31 (as start day is treated differently) like ['2', ...'31']
@@ -29,7 +30,7 @@ def test_get_calendar_month(client):
     last_day = max(int(day) for day in day_divs)
     assert last_day == month_days
 
-    first_day_class = f"first_day_of_month_is_{start_day + 1}"
+    first_day_class = f"first_day_of_month_is_{start_day}"
     assert first_day_class in html
 
     assert f'href="/calendar/{year}/{month-1}"' in html  # ссылка 'Назад' на пред месяц
