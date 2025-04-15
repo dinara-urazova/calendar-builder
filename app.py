@@ -20,7 +20,7 @@ months = {
 }
 
 
-def get_events_for_year_and_month(year: int, month: int | None = None, month_days: int | None = None) -> list:
+def get_events_for_year_and_month(year: int, month: int | None = None) -> list:
     if year == 2025 and month == 1:
         return [
             [],
@@ -57,7 +57,9 @@ def get_events_for_year_and_month(year: int, month: int | None = None, month_day
         ]
     elif month is None: # when a year is the only parameter
         return [[]] * 12
-    return [[] for _ in range(month_days)] # when a calendar month is requested for non-January 2025, return a list of empty lists in the number of month_days
+    else:
+        _, month_days = calendar.monthrange(year, month) # month_days is the second parameter of the output
+        return [[] for _ in range(month_days)] # when a calendar month is requested for non-January 2025, return a list of empty lists in the number of month_days
     
 
 
