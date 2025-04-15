@@ -49,15 +49,23 @@
   text-align: center;
 }
 
-.calendar-container div {
+.calendar-container .day {
   border: 1px #ccc; /* граница для каждого дня */
   padding: 5px;
 }
 
-.calendar-container div:hover {
+.calendar-container .day:hover {
   background-color: #028e4a;
   color: #fff;
   cursor: pointer;
+}
+
+.event {
+  margin-top: 5px; /* Отступ сверху между днем и событием */
+  padding: 2px; /* Отступы внутри события */
+  border-radius: 3px; /* Закругленные углы */
+  color: darkmagenta; /* Цвет текста */
+  font-size: 12px;
 }
 
 .first_day_of_month_is_1 {
