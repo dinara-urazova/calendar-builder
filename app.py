@@ -16,16 +16,60 @@ months = {
     9: "Сентябрь",
     10: "Октябрь",
     11: "Ноябрь",
-    12: "Декабрь"
+    12: "Декабрь",
 }
 
 
-def validate_year_month(year: int, month=None):
+def get_events_for_year_and_month(year: int, month: int | None = None) -> list:
+    if year == 2025 and month == 1:
+        return [
+            [],
+            ["stars_1"],
+            ["stars_1"],
+            [],
+            ["stars_1"],
+            ["stars_1"],
+            ["bm"],
+            ["stars_4"],
+            ["gr", "den guru dragpo"],
+            ["stars_1"],
+            [],
+            ["stars_5"],
+            ["ba"],
+            ["stars_2"],
+            [],
+            [],
+            [],
+            [],
+            ["stars_3"],
+            ["stars_1"],
+            [],
+            [],
+            [],
+            ["stars_2", "dk"],
+            [],
+            [],
+            [],
+            ["tl"],
+            ["bsh"],
+            ["stars_5"],
+            ["stars_4"]
+        ]
+    elif month is None: # when a year is the only parameter
+        return [[]] * 12
+    else:
+        _, month_days = calendar.monthrange(year, month) # month_days is the second parameter of the output
+        return [[] for _ in range(month_days)] # when a calendar month is requested for non-January 2025, return a list of empty lists in the number of month_days
+    
+
+
+def validate_year_month(year: int, month: int | None = None):
     if year < 1 or year > 9999:
         abort(400, f"Invalid year number: {year}. Year must be between 1 and 9999.")
     if month is not None:
         if month < 1 or month > 12:
             abort(400, f"Invalid month number: {month}. Must be between 1 and 12.")
+
 
 @app.route("/", methods=["GET"])
 def root():
@@ -39,7 +83,7 @@ def root():
 
 @app.route("/calendar/<int:year>/<int:month>", methods=["GET"])
 def get_calendar_month(year: int, month: int):
-    # Проверка для года и месяца 
+    # Проверка для года и месяца
     validate_year_month(year, month)
     month_start_day, month_days = calendar.monthrange(year, month)
     month_name = months[month]
@@ -47,6 +91,8 @@ def get_calendar_month(year: int, month: int):
     prev_month = month - 1 if month > 1 else 12
     next_year = year if month < 12 else year + 1
     prev_year = year if month > 1 else year - 1
+
+    events = get_events_for_year_and_month(year, month)
 
     return render_template(
         "calendar-month.html",
@@ -58,6 +104,7 @@ def get_calendar_month(year: int, month: int):
         next_year=next_year,
         prev_month=prev_month,
         prev_year=prev_year,
+        events=events,
     )
 
 

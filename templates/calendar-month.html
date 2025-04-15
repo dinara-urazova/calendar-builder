@@ -37,12 +37,19 @@
         </div>
 
         <div class="calendar-container">
-          <div class="{{first_day_class}}">1</div>
-          {% for date in range(2, month_days + 1) %} 
-          <div>{{ date }}</div>
+          {% for date in range(1, month_days + 1) %}
+            <div class="day {% if date == 1 %}{{ first_day_class }}{% endif %}">
+              {{ date }} 
+              {% if events[date - 1] %} 
+                {% for event in events[date - 1] %}
+                  <div class="event">{{ event }}</div>
+                {% endfor %}
+              {% endif %}
+          </div>
           {% endfor %}
         </div>
       </div>
     </div>
   </body>
 </html>
+
