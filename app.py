@@ -92,7 +92,7 @@ def get_calendar_month(year: int, month: int):
     next_year = year if month < 12 else year + 1
     prev_year = year if month > 1 else year - 1
 
-    events = get_events_for_year_and_month(year, month, month_days)
+    events = get_events_for_year_and_month(year, month)
 
     return render_template(
         "calendar-month.html",
