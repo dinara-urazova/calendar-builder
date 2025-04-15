@@ -53,14 +53,17 @@ def get_events_for_year_and_month(year: int, month: int | None = None) -> list:
             ["tl"],
             ["bsh"],
             ["stars_5"],
-            ["stars_4"]
+            ["stars_4"],
         ]
-    elif month is None: # when a year is the only parameter
+    elif month is None:  # when a year is the only parameter
         return [[]] * 12
     else:
-        _, month_days = calendar.monthrange(year, month) # month_days is the second parameter of the output
-        return [[] for _ in range(month_days)] # when a calendar month is requested for non-January 2025, return a list of empty lists in the number of month_days
-    
+        _, month_days = calendar.monthrange(
+            year, month
+        )  # month_days is the second parameter of the output
+        return [
+            [] for _ in range(month_days)
+        ]  # when a calendar month is requested for non-January 2025, return a list of empty lists in the number of month_days
 
 
 def validate_year_month(year: int, month: int | None = None):
@@ -116,12 +119,14 @@ def get_calendar_year(year: int):
     for month in range(1, 13):
         month_start_day, month_days = calendar.monthrange(year, month)
         month_name = months[month]
+        events = get_events_for_year_and_month(year, month)
         month_data.append(
             {
                 "year": year,
                 "month_name": month_name,
                 "month_days": month_days,
                 "first_day_class": f"first_day_of_month_is_{month_start_day + 1}",
+                "events": events,
             }
         )
     next_year = year + 1
