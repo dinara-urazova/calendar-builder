@@ -1,6 +1,7 @@
-SELECT TO_CHAR(d::date, 'YYYY-MM-DD') AS date, COALESCE(e.base_type, '0') AS base_type
+SELECT TO_CHAR(d::date, 'YYYY-MM-DD') AS date, string_agg(base_type, ',')
 FROM generate_series('2025-01-01', '2025-01-31', '1 day'::interval) d
-LEFT JOIN events e ON d::date = e.date;
+LEFT JOIN events e ON d::date = e.date
+GROUP BY d::date ORDER BY d::date;
 
 /*  
 Функция generate_series генерирует последовательность значений из указанного промежутка начало-конец-шаг (start, stop, interval)
