@@ -6,10 +6,9 @@
 
 .header {
   color: darkslategrey;
-  text-align: center; 
+  text-align: center;
   margin-bottom: 20px; /* Отступ снизу для разделения с календарем */
 }
-
 
 .navigation {
   margin-top: 10px; /* Отступ сверху для разделения с заголовком */
@@ -52,6 +51,10 @@
 .calendar-container .day {
   border: 1px #ccc; /* граница для каждого дня */
   padding: 5px;
+  min-height: 60px;
+  max-height: 80px;
+  display: flex;
+  flex-direction: column;
 }
 
 .calendar-container .day:hover {
