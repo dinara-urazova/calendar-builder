@@ -61,6 +61,13 @@
   box-sizing: border-box;
 }
 
+.day.bm,
+.day.gr, 
+.day.bsh,
+.day.dk {
+  border: 2px solid;
+}
+
 .day.bm {
   border-color: blue;
 }
