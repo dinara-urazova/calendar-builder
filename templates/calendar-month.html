@@ -40,11 +40,16 @@
 
         <div class="calendar-container">
           {% for date in range(1, month_days + 1) %}
-            <div class="day {% if date == 1 %}{{ first_day_class }}{% endif %}">
+            <div class="day {% if date == 1 %}{{ first_day_class }}{% endif %}
+            {% for event in events[date - 1] %}
+              {% if event in ['bm', 'dk', 'gr', 'bsh']%}
+                {{ event }}
+              {% endif %}
+            {% endfor %}">
               {{ date }} 
               {% if events[date - 1] %} 
                 {% for event in events[date - 1] %}
-                  <div class="event">{{ event }}</div>
+                <div class="event {{ event }}"></div>
                 {% endfor %}
               {% endif %}
           </div>

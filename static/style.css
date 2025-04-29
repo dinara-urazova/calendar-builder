@@ -49,13 +49,34 @@
 }
 
 .calendar-container .day {
-  border: 1px #ccc; /* граница для каждого дня */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc; /* граница для каждого дня */
   padding: 5px;
   min-height: 60px;
   max-height: 80px;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
 }
+
+.day.bm {
+  border-color: blue;
+}
+
+.day.bsh {
+  border-color: red;
+}
+
+.day.dk {
+  border-color: orange;
+}
+
+.day.gr {
+  border-color: green;
+}
+
 
 .calendar-container .day:hover {
   background-color: #028e4a;
@@ -65,160 +86,82 @@
 
 .event {
   margin-top: 5px; /* Отступ сверху между днем и событием */
-  padding: 2px; /* Отступы внутри события */
-  border-radius: 3px; /* Закругленные углы */
-  color: darkmagenta; /* Цвет текста */
-  font-size: 12px;
+  color: darkmagenta; 
+  font-size: 1em;
+  position: relative;
 }
 
-.first_day_of_month_is_1 {
-  grid-column-start: 1;
-}
+.first_day_of_month_is_1 { grid-column-start: 1; }
 
-.first_day_of_month_is_2 {
-  grid-column-start: 2;
-}
+.first_day_of_month_is_2 { grid-column-start: 2; }
 
-.first_day_of_month_is_3 {
-  grid-column-start: 3;
-}
+.first_day_of_month_is_3 { grid-column-start: 3; }
 
-.first_day_of_month_is_4 {
-  grid-column-start: 4;
-}
+.first_day_of_month_is_4 { grid-column-start: 4; }
 
-.first_day_of_month_is_5 {
-  grid-column-start: 5;
-}
+.first_day_of_month_is_5 { grid-column-start: 5; }
 
-.first_day_of_month_is_6 {
-  grid-column-start: 6;
-}
+.first_day_of_month_is_6 { grid-column-start: 6; }
 
-.first_day_of_month_is_7 {
-  grid-column-start: 7;
-}
+.first_day_of_month_is_7 { grid-column-start: 7; }
 
 .a::after {
-  content: " А";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
+  content: "А";
+  color: red;
+  font-size: 1.2 em;
+  position: absolute;
+  bottom: 5px;  /* амрита дб в нижнем левом углу */
+  left: 5px;
 }
 
 .ba::after {
-  content: " БА";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
+  content: "🌕";
+  position: absolute;
+  top: 5px; /* луны дб в правом верхнем углу */
+  right: 5px;
+  font-size: 1.2 em;
 }
 
-.bm::after {
-  content: " БМ";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.bsh::after {
-  content: " БШ";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.dk::after {
-  content: " ДК";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-}
-
-.dk_st_2::after {
-  content: " ДК, 2★";
-  color: grey;
-  position: relative;
-  line-height: 1;
-}
-.gr::after {
-  content: " ГР";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
 
 .tl::after {
-  content: " ТЛ";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
+  content: "🌑";
+  position: absolute;
+  top: 5px; /* луны дб в правом верхнем углу */
+  right: 5px;
+  font-size: 1.2 em;
 }
 
-.stars_1::after {
-  content: " 1★";
-  color: grey;
+.stars_1::after { content: "★ 1"; }
+.stars_2::after { content: "★ 2"; }
+.stars_3::after { content: "★ 3"; }
+.stars_4::after { content: "★ 4"; }
+.stars_5::after { content: "★ 5"; }
+.stars_6::after { content: "★ 6"; }
+.stars_7::after { content: "★ 7"; }
+.stars_8::after { content: "★ 8"; }
+.stars_9::after { content: "★ 9"; }
+.stars_10::after { content: "★ 10"; }
+
+.stars_1::after,
+.stars_2::after,
+.stars_3::after,
+.stars_4::after,
+.stars_5::after,
+.stars_6::after,
+.stars_7::after,
+.stars_8::after,
+.stars_9::after,
+.stars_10::after {
+  top: 5px; /* звезды дб в верхнем левом углу */
+  left: 5px;
+  font-size: 1em;
+  color: #c8a951;
   white-space: nowrap;
-  position: relative;
-  line-height: 1;
+  position: absolute;
 }
 
-.stars_2::after {
-  content: " 2★";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.stars_3::after {
-  content: " 3★";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.stars_4::after {
-  content: " 4★";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.stars_5::after {
-  content: " 5★";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.stars_6::after {
-  content: " 6★";
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.stars_7::after {
-  content: " 7★";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
-}
-
-.stars_8::after {
-  content: " 8★";
-  color: grey;
-  white-space: nowrap;
-  position: relative;
-  line-height: 1;
+.footer-holiday {
+    font-size: small;
+    color: grey;
+    text-align: center;
 }
