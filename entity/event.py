@@ -7,7 +7,8 @@ from entity.base import Base
 class Event(Base):
     __tablename__ = "events"  # название таблицы в БД (смотри через DBeaver)
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    date: Mapped[datetime.date] = mapped_column(Date)
+    date: Mapped[datetime.date] = mapped_column(Date, primary_key=True)
+    stars: Mapped[int] = mapped_column(Integer)
     base_type: Mapped[str] = mapped_column(String)
+    holiday: Mapped[str] = mapped_column(String)
  

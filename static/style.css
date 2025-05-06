@@ -168,7 +168,52 @@
 }
 
 .footer-holiday {
-    font-size: small;
-    color: grey;
-    text-align: center;
+  font-size: small;
+  color: grey;
+  margin-top: 1em;
+  text-align: center;
+  width: 100%;
 }
+
+.holiday-key-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap; /* Allow wrapping when space is insufficient */
+  gap: 10px; /* Space between the holiday boxes */
+}
+
+
+.holiday-key {
+  display: flex; /* Ensure the holiday boxes align horizontally */
+  gap: 10px; /* Space between the holiday boxes */
+  flex-wrap: nowrap; /* Allow wrapping if there's not enough space */
+}
+
+.holiday-box {
+  border: 2px solid;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.9rem;
+  color: #3b302b;
+  background-color: #f7f7f7;
+  white-space: wrap;
+}
+
+.holiday-box.bm {
+  border-color: blue;
+}
+
+.holiday-box.dk {
+  border-color: orange;
+}
+
+.holiday-box.gr {
+  border-color: green;
+}
+
+.holiday-box.bsh {
+  border-color: red;
+}
+
+

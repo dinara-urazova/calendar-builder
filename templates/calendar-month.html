@@ -36,18 +36,42 @@
           <div>Сб</div>
           <div>Вс</div>
         </div>
-
-        <div class>
-
+        
+        {% set holiday_list = [] %}
         <div class="calendar-container">
           {% for date in range(1, month_days + 1) %}
-            <div class="day {% if date == 1 %}{{ first_day_class }}{% endif %} {{ events[date-1].day_class or '' }}">
+            {% set event = events[date - 1] %}
+            <div class="day {% if date == 1 %}{{ first_day_class }}{% endif %} {{ event.day_class or '' }}">
               {{ render_day(date, events[date - 1]) }}
             </div>
+            {% if event.holiday %}
+              {% set _ = holiday_list.append(date ~ ' – ' ~ event.holiday) %}
+            {% endif %}
           {% endfor %}
+          
         </div>
+      {% if holiday_list %}
+        <div class="holidays">
+          <p><strong>Праздники:</strong> {{ holiday_list | join(', ') }}</p>
+        </div>
+      {% endif %}
+      <div class="footer-holiday">
+        <div class="holiday-key-wrapper">
+          <div class="holiday-key">
+            <div class="holiday-box bm"><span>БМ</span></div>
+            <div class="holiday-box dk"><span>ДК</span></div>
+            <div class="holiday-box gr"><span>ГР</span></div>
+            <div class="holiday-box bsh"><span>БШ</span></div>
+          </div>
+        </div>
+      </div>
+      </div>
       </div>
     </div>
   </body>
 </html>
+
+
+
+
 

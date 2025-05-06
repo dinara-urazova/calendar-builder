@@ -14,6 +14,7 @@ class DayEvents(NamedTuple):
     day_class: str | None
     is_amrita: bool
     moon: str | None
+    holiday: str | None
 
 
 class EventStorageSqlAlchemy:
@@ -29,46 +30,51 @@ class EventStorageSqlAlchemy:
         query = text(
             """
             SELECT 
-                EXTRACT(DAY FROM d)::int AS day, 
-                array_remove(array_agg(e.base_type), NULL) AS event_types
-            FROM generate_series(:start_date, :end_date, '1 day'::interval) d
-            LEFT JOIN events e ON d::date = e.date
-            GROUP BY day
-            ORDER BY day;
+                e.date,
+                e.stars,
+                e.base_type,
+                e.holiday
+                FROM events e
+                WHERE e.date BETWEEN :start_date AND :end_date
+                ORDER by e.date; 
         """
         )
+
 
         with Session(self.engine) as session:
             result = session.execute(
                 query, {"start_date": start_date, "end_date": end_date}
             ).fetchall()
-            events_by_day = [[] for _ in range(month_days)]
+            
+            events_by_day = [DayEvents(stars=0, day_class=None, is_amrita=False, moon=None, holiday=None) for _ in range(month_days)]
+            border_types = {'bm', 'gr', 'dk', 'bsh'}
 
-            def get_day_events(events: list) -> DayEvents:
-                stars = 0
-                day_class = None
-                is_amrita = False
-                moon = None
+            for event_date, stars, base_type, holiday in result:
+                index = event_date.day - 1
+                day = events_by_day[index]
+                ev = [t.strip() for t in base_type.split(',')] if base_type else []
 
-                for event in events:
-                    if "stars_" in event:
-                        stars = int(event[-1])
-                    if event in ['bm', 'gr', 'bsh', 'dk']:
-                        day_class = event
-                    if "tl" == event:
+
+                day_class = day.day_class
+                moon = day.moon
+                is_amrita = day.is_amrita
+                
+                for x in ev:
+                    if x in border_types:
+                        day_class = x
+                    if x == "tl":
                         moon = "🌑"
-                    if "ba" == event:
+                    elif x == "ba":
                         moon = "🌕"
-                    if "a" == event:
+                    if x == "a":
                         is_amrita = True
-
-                return DayEvents(
-                    stars=stars,
+                        
+                events_by_day[index] = DayEvents(
+                    stars=stars or 0,
                     day_class=day_class,
                     is_amrita=is_amrita,
                     moon=moon,
-                )
-
-            for day, event_types in result:
-                events_by_day[day - 1] = get_day_events(event_types)
+                    holiday=holiday
+            )
             return events_by_day
+        
