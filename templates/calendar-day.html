@@ -1,0 +1,12 @@
+{% macro render_day(date, event) %}
+<table>
+<tr>
+    <td style="color: red">&nbsp;{% if event.stars > 0 %}⭐️{{ event.stars }}{% endif %}</td>
+    <td>{{ event.moon or '' }}</td>
+</tr>
+<tr>
+    <td style="color: brown; font-weight: bold;">{% if event.is_amrita %}A{% endif %}</td>
+    <td>{{ date }}</td>
+</tr>
+</table>
+{% endmacro %}

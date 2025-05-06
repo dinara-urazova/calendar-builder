@@ -1,8 +1,14 @@
 from flask import Flask, abort, redirect, render_template, url_for
 import calendar
 from datetime import datetime
+from entity.event import Event
+from config_reader import Settings
+from event_storage_postgresql import EventStorageSqlAlchemy
 
 app = Flask(__name__)
+
+env_config = Settings()
+event_storage = EventStorageSqlAlchemy()
 
 months = {
     1: "Январь",
@@ -18,52 +24,6 @@ months = {
     11: "Ноябрь",
     12: "Декабрь",
 }
-
-
-def get_events_for_year_and_month(year: int, month: int | None = None) -> list:
-    if year == 2025 and month == 1:
-        return [
-            [],
-            ["stars_1"],
-            ["stars_1"],
-            [],
-            ["stars_1"],
-            ["stars_1"],
-            ["bm"],
-            ["stars_4"],
-            ["gr", "den guru dragpo"],
-            ["stars_1"],
-            [],
-            ["stars_5"],
-            ["ba"],
-            ["stars_2"],
-            [],
-            [],
-            [],
-            [],
-            ["stars_3"],
-            ["stars_1"],
-            [],
-            [],
-            [],
-            ["stars_2", "dk"],
-            [],
-            [],
-            [],
-            ["tl"],
-            ["bsh"],
-            ["stars_5"],
-            ["stars_4"],
-        ]
-    elif month is None:  # when a year is the only parameter
-        return [[]] * 12
-    else:
-        _, month_days = calendar.monthrange(
-            year, month
-        )  # month_days is the second parameter of the output
-        return [
-            [] for _ in range(month_days)
-        ]  # when a calendar month is requested for non-January 2025, return a list of empty lists in the number of month_days
 
 
 def validate_year_month(year: int, month: int | None = None):
@@ -95,7 +55,7 @@ def get_calendar_month(year: int, month: int):
     next_year = year if month < 12 else year + 1
     prev_year = year if month > 1 else year - 1
 
-    events = get_events_for_year_and_month(year, month)
+    events = event_storage.get_events_calendar_view(year, month)
 
     return render_template(
         "calendar-month.html",
@@ -119,7 +79,7 @@ def get_calendar_year(year: int):
     for month in range(1, 13):
         month_start_day, month_days = calendar.monthrange(year, month)
         month_name = months[month]
-        events = get_events_for_year_and_month(year, month)
+        events = event_storage.get_events_calendar_view(year, month)
         month_data.append(
             {
                 "year": year,
