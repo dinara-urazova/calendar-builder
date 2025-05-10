@@ -1,4 +1,4 @@
-Calendar builder project (can be customized for different aims).
+Calendar builder project which renders Buddhist holidays for 2025 year (it can still be customized for different aims).
 
 # Install project
 
