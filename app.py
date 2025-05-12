@@ -1,7 +1,6 @@
 from flask import Flask, abort, redirect, render_template, url_for, current_app
 import calendar
 from datetime import datetime
-from entity.event import Event
 from config_reader import Settings
 from event_storage_postgresql import EventStorageSqlAlchemy
 from typing import cast
@@ -81,7 +80,9 @@ def get_calendar_year(year: int):
     for month in range(1, 13):
         month_start_day, month_days = calendar.monthrange(year, month)
         month_name = months[month]
-        event_storage = cast(EventStorageSqlAlchemy, current_app.config["event_storage"])
+        event_storage = cast(
+            EventStorageSqlAlchemy, current_app.config["event_storage"]
+        )
         events = event_storage.get_events_calendar_view(year, month)
         month_data.append(
             {
@@ -94,7 +95,6 @@ def get_calendar_year(year: int):
         )
     next_year = year + 1
     prev_year = year - 1
-    
 
     return render_template(
         "calendar-year.html",

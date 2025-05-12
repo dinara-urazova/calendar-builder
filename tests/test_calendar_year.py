@@ -1,7 +1,6 @@
 from app import app
 import pytest
 import calendar
-import re
 from utils import StorageMock
 from event_storage_postgresql import DayEvents
 from typing import List
