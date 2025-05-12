@@ -2,7 +2,11 @@ from app import app
 import pytest
 import calendar
 import re
-
+from utils import StorageMock
+from event_storage_postgresql import DayEvents
+from typing import List
+import html
+from bs4 import BeautifulSoup
 
 months = {
     1: "Январь",
@@ -29,32 +33,51 @@ def client():
 
 def test_get_calendar_year(client):
     year = 2024
+
+    def get_events_calendar_view_mock(year: int, month: int) -> List[DayEvents]:
+        _, month_days = calendar.monthrange(year, month)
+        events = [DayEvents(stars=0, day_class="None", is_amrita=False, moon=None, holiday=None) for _ in range(month_days)]
+        events[0] = DayEvents(stars=5, day_class="dk", is_amrita=True, moon="ba", holiday="Special Day")
+        return events
+
+    app.config["event_storage"] = StorageMock({"get_events_calendar_view": get_events_calendar_view_mock})
     response = client.get(f"/calendar/{year}")
-
-    html = response.data.decode("utf-8")
-
     assert response.status_code == 200
-    assert f"{year}" in html
 
-    # Extract the month data from the rendered HTML
-    for month in range(1, 13):
-        month_name = months[month] 
-        month_start_day, month_days = calendar.monthrange(year, month)
-        assert month_name in html
+    content = html.unescape(response.data.decode("utf-8"))
+    soup = BeautifulSoup(content, "html.parser")
+    
+    assert soup.find("h1").text == str(year)
+    assert f'href="/calendar/{year-1}"' in content
+    assert f'href="/calendar/{year + 1}"' in content
 
-        # Find the section for the specific month
-        month_section = html.split(f'<div class="month">')[month]
-        
-        # Extract the divs for the days of the month  
-        day_divs = re.findall(r'<div>(\d+)</div>', month_section)
+    # ensure that number of months is 12
+    month_divs = soup.select("div.calendar-wrapper > div.month")
+    assert len(month_divs) == 12
 
-       # as in calendar month, find the highest div num aka last month day
-        last_day = max(int(day) for day in day_divs)
-        assert last_day == month_days
+    # ensure month names are present 
+    for index, month_div in enumerate(month_divs, start=1):
+        month_name = months[index]
+        assert month_div.find("h3").text == month_name
 
-        # Ensure the first day of the month has the correct CSS class
-        first_day_class = f"first_day_of_month_is_{month_start_day + 1}"
-        assert first_day_class in month_section
+        # ensure first-day class + special event on day 1
+        first_day = month_div.select_one(".calendar-container .day")
+        start_day = calendar.monthrange(year, index)[0] + 1
+        first_day_classes = first_day.get("class", [])
+        assert f"first_day_of_month_is_{start_day}" in first_day_classes
+        assert "dk" in first_day_classes
 
-    assert f'href="/calendar/{year-1}"' in html
-    assert f'href="/calendar/{year + 1}"' in html
+        # star count, Amrita, moon symbol checks in the first-day table
+        tds = first_day.find_all("td")
+        assert "⭐️5" in tds[0].text
+        assert "ba" in tds[1].text
+        assert tds[2].text.strip() == "A"
+
+        # check if days num is correct
+        tables = month_div.select(".calendar-container table")
+        expected_days = calendar.monthrange(year, index)[1]
+        assert len(tables) == expected_days
+    
+    # check special day is rendered correctly
+    footer = soup.select_one("div.holidays p")
+    assert "Special Day" in footer.text
