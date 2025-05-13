@@ -1,4 +1,4 @@
-from app import app
+from calendar_builder import app
 import pytest
 import calendar
 from utils import StorageMock

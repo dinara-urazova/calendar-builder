@@ -1,4 +1,4 @@
-from app import app
+from calendar_builder import app
 import pytest
 from datetime import datetime
 
