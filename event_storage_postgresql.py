@@ -18,7 +18,7 @@ class DayEvents(NamedTuple):
 
 class EventStorageSqlAlchemy:
     def __init__(self):
-        connection_str = f"postgresql+pg8000://{env_config.postgresql_username}:{env_config.postgresql_password}@{env_config.postgresql_hostname}:{env_config.postgresql_port}/{env_config.postgresql_database}"
+        connection_str = f"postgresql+pg8000://{env_config.postgresql_username}:{env_config.postgresql_password.get_secret_value()}@{env_config.postgresql_hostname}:{env_config.postgresql_port}/{env_config.postgresql_database}"
         self.engine = create_engine(connection_str, echo=True)
 
     def get_events_calendar_view(self, year: int, month: int) -> List[DayEvents]:
@@ -76,4 +76,4 @@ class EventStorageSqlAlchemy:
                     holiday=holiday
             )
             return events_by_day
-        
+ 
